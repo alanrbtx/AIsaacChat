@@ -1,0 +1,15 @@
+artifact_uri: file:///home/alan-robotics/Desktop/celery-test-api/mlruns/298734138253897585/67f84409d5184f3487e3e59b45b7ce06/artifacts
+end_time: null
+entry_point_name: ''
+experiment_id: '298734138253897585'
+lifecycle_stage: active
+run_id: 67f84409d5184f3487e3e59b45b7ce06
+run_name: finetuned-second
+run_uuid: 67f84409d5184f3487e3e59b45b7ce06
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1685781252591
+status: 1
+tags: []
+user_id: alan-robotics
