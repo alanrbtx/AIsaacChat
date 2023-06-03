@@ -1,0 +1,15 @@
+artifact_uri: file:///home/alan-robotics/Desktop/celery-test-api/mlruns/298734138253897585/a2a1bccc24994f2785612ac8e41b1181/artifacts
+end_time: 1685787692588
+entry_point_name: ''
+experiment_id: '298734138253897585'
+lifecycle_stage: active
+run_id: a2a1bccc24994f2785612ac8e41b1181
+run_name: capable-auk-759
+run_uuid: a2a1bccc24994f2785612ac8e41b1181
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1685786041390
+status: 3
+tags: []
+user_id: alan-robotics
