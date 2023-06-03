@@ -4,7 +4,7 @@ import time
 from celery import Celery
 import torch
 from diffusers import StableDiffusionPipeline, DPMSolverMultistepScheduler
-from transformers import AutoTokenizer, MarianMTModel, T5ForConditionalGeneration
+from transformers import AutoTokenizer, MarianMTModel, T5ForConditionalGeneration, AutoModel
 
 
 app = Flask(__name__)
@@ -32,6 +32,37 @@ conversation_model = T5ForConditionalGeneration.from_pretrained(conversation_che
 translator_checkpoint = 'Helsinki-NLP/opus-mt-ru-en'
 translator_tokenizer = AutoTokenizer.from_pretrained(translator_checkpoint)
 translator = MarianMTModel.from_pretrained(translator_checkpoint)
+    
+
+#intent classification
+siamese_checkpoint = 'AlanRobotics/aisaac-siamese'
+siamese_tokenizer = AutoTokenizer.from_pretrained('cointegrated/rubert-tiny')
+siamese_model = AutoModel.from_pretrained(siamese_checkpoint, trust_remote_code=True)
+
+
+#question answering
+qa_checkpoint = 'AlanRobotics/ruT5_q_a'
+qa_model = T5ForConditionalGeneration.from_pretrained(qa_checkpoint)
+qa_tokenizer = AutoTokenizer.from_pretrained(qa_checkpoint)
+
+
+def intent_classification(prompt):
+    domen = ['Нарисуй изображение', 'Выполни инструкцию']
+    
+    for command in domen:
+        f_sent = siamese_tokenizer(prompt, max_length=20, padding='max_length', return_tensors='pt')
+        s_sent = siamese_tokenizer(command, max_length=20, padding='max_length', return_tensors='pt')
+        res = torch.argmax(siamese_model([f_sent, s_sent])['logits'], dim=1).detach().numpy()
+        if res == 1:
+            return command
+        
+
+def question_answering(prompt):
+    question = "Что нужно нарисовать?"
+    tokenized_sentence = qa_tokenizer(prompt, question, return_tensors='pt')
+    res = qa_model.generate(**tokenized_sentence)
+    decoded_res = qa_tokenizer.decode(res[0], skip_special_tokens=True)
+    return decoded_res
     
 
 @celery_app.task
@@ -83,8 +114,10 @@ def generate_function():
     res = request.get_json()
     prompt = res['data']['value']
 
-    if "Нарисуй" in prompt:
-        prompt = prompt.replace('Нарисуй', '')
+    res = intent_classification(prompt)
+
+    if res == "Нарисуй изображение":
+        prompt = question_answering(prompt)
         res = generate_image.delay(prompt)
         print(res)
         task_id = res.get()
