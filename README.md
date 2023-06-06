@@ -12,7 +12,6 @@ Model for prompt translation
 Model for image generation
 
 
-
 ### Requests are executed synchronously, queues are implemented using RabbitMQ and rpc result backend
 
 ### The app was created with SwiftUI
