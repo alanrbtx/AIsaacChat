@@ -11,7 +11,7 @@ Model for prompt translation
 ### stabilityai/stable-diffusion-2-1-base
 Model for image generation
 
-![alt text](https://github.com/alanrbtx/AIsaacChat/blob/main/aisaac.png?raw=true)
+![alt text](https://github.com/alanrbtx/AIsaacChat/blob/main/scheme.png?raw=true)
 
 ### Requests are executed synchronously, queues are implemented using RabbitMQ and rpc result backend
 
