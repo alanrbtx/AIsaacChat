@@ -17,4 +17,4 @@ Model for image generation
 
 ### The app was created with SwiftUI
 
-https://apps.apple.com/ru/app/aisaacchat-%D0%B8%D0%B8-%D1%87%D0%B0%D1%82%D0%B1%D0%BE%D1%82/id6449434098
+https://apps.apple.com/app/id6449434098
