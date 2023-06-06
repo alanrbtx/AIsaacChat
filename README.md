@@ -11,6 +11,8 @@ Model for prompt translation
 ### stabilityai/stable-diffusion-2-1-base
 Model for image generation
 
+
+
 ### Requests are executed synchronously, queues are implemented using RabbitMQ and rpc result backend
 
 ### The app was created with SwiftUI
